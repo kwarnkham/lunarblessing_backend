@@ -14,10 +14,23 @@ namespace App\Models{
 /**
  * App\Models\Feature
  *
+ * @property int $id
+ * @property int $item_id
+ * @property int|null $dimmed_lid
+ * @property string|null $text
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Item $item
  * @method static \Database\Factories\FeatureFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Feature newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Feature newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Feature query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Feature whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Feature whereDimmedLid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Feature whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Feature whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Feature whereText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Feature whereUpdatedAt($value)
  */
 	class Feature extends \Eloquent {}
 }
@@ -32,6 +45,9 @@ namespace App\Models{
  * @property float $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Feature|null $feature
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
  * @method static \Database\Factories\ItemFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
@@ -48,6 +64,21 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Order
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Item[] $items
+ * @property-read int|null $items_count
+ * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\OrderFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ */
+	class Order extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\User
  *
  * @property int $id
@@ -60,6 +91,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)

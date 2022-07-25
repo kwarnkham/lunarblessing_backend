@@ -15,4 +15,9 @@ class Item extends Model
     {
         return $this->hasOne(Feature::class);
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

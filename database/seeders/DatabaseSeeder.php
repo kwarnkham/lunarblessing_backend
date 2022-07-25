@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Feature;
 use App\Models\Item;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -37,6 +39,13 @@ class DatabaseSeeder extends Seeder
             ])->has(
                 Feature::factory()
             )->create();
+
+        User::factory()->has(
+            Order::factory()->hasAttached(
+                Item::factory(),
+                ['quantity' => 1, 'sale_price' => 30000, 'text' => 'my cool text']
+            )
+        )->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
