@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Feature;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Picture;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -27,7 +28,6 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Taurus',
                 'description' => 'The Bull ♉︎. Sun Sign Dates from April 20th to May 20th. Negative polarity. Fixed modality. Triplicity, Earth.',
-
             ]
         ];
 
@@ -37,12 +37,12 @@ class DatabaseSeeder extends Seeder
                 'description' => $sign['description'],
                 'price' => 30000
             ])->has(
-                Feature::factory()
+                Picture::factory()
             )->create();
 
         User::factory()->has(
             Order::factory()->hasAttached(
-                Item::factory(),
+                Item::factory()->has(Picture::factory()),
                 ['quantity' => 1, 'sale_price' => 30000, 'text' => 'my cool text']
             )
         )->create();

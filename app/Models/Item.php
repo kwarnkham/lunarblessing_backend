@@ -11,6 +11,8 @@ class Item extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['pictures'];
+
     public function feature()
     {
         return $this->hasOne(Feature::class);
@@ -19,5 +21,10 @@ class Item extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class);
+    }
+
+    public function pictures()
+    {
+        return $this->hasMany(Picture::class);
     }
 }
