@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Item;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -36,7 +38,28 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
+        $data = $request->validated();
+        $user = $request->user();
+        $itemids = array_map(fn ($val) => $val['id'], $data['items']);
+        return response()->json(DB::transaction(function () use ($user, $itemids, $data) {
+            $order = Order::create([
+                'user_id' => $user->id
+            ]);
+            $items = Item::whereIn('id', $itemids)->get();
+
+            $order->items()->attach(
+                array_combine(
+                    $itemids,
+                    array_map(fn ($val) => [
+                        'quantity' => $val['quantity'],
+                        'sale_price' => $items->first(fn ($v) => $v->id == $val['id'])->price,
+                        'text' => $val['text'],
+                        'dimmed_lid' => $val['dimmed_lid']
+                    ], $data['items'])
+                )
+            );
+            return $order;
+        }));
     }
 
     /**

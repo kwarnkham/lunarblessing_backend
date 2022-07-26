@@ -32,4 +32,9 @@ class AuthController extends Controller
             'token' => $token->plainTextToken
         ]);
     }
+
+    public function checkToken(Request $request)
+    {
+        return response()->json($request->user());
+    }
 }
