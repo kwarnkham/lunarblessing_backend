@@ -20,6 +20,7 @@ class Order extends Model
     }
 
     protected $guarded = ['id'];
+    protected $with = ['items'];
 
     public function items()
     {
@@ -31,5 +32,10 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeOf($query, User $user)
+    {
+        $query->where('user_id', $user->id);
     }
 }

@@ -31,4 +31,6 @@ Route::controller(ItemController::class)->group(function () {
 
 Route::middleware('auth:sanctum')->controller(OrderController::class)->group(function () {
     Route::post('order', 'store');
+    Route::get('order/{order}', 'show');
+    Route::get('order', 'index');
 });
