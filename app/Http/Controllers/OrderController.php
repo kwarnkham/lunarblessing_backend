@@ -42,9 +42,8 @@ class OrderController extends Controller
         $user = $request->user();
         $itemids = array_map(fn ($val) => $val['id'], $data['items']);
         return response()->json(DB::transaction(function () use ($user, $itemids, $data) {
-            $order = Order::create([
-                'user_id' => $user->id
-            ]);
+            $data['user_id'] = $user->id;
+            $order = Order::create($data);
             $items = Item::whereIn('id', $itemids)->get();
 
             $order->items()->attach(

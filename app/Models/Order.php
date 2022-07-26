@@ -9,6 +9,16 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected static function booted()
+    {
+        static::created(function ($order) {
+            $user = $order->user;
+            if (is_null($user->mobile)) $user->mobile = $order->mobile;
+            if (is_null($user->address)) $user->address = $order->address;
+            if ($user->isDirty()) $user->save();
+        });
+    }
+
     protected $guarded = ['id'];
 
     public function items()

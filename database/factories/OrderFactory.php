@@ -17,7 +17,9 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->name(),
+            'mobile' => fake()->phoneNumber(),
+            'address' => fake()->address(),
         ];
     }
 }
