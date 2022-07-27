@@ -14,6 +14,7 @@ class Order extends Model
         static::created(function ($order) {
             $user = $order->user;
             if (is_null($user->mobile)) $user->mobile = $order->mobile;
+            if (is_null($user->name)) $user->name = $order->name;
             if (is_null($user->address)) $user->address = $order->address;
             if ($user->isDirty()) $user->save();
         });
