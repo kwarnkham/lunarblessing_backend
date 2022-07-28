@@ -78,6 +78,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Item[] $items
  * @property-read int|null $items_count
+ * @property-read \App\Models\Payment|null $payment
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\OrderFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
@@ -94,6 +95,37 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  */
 	class Order extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Payment
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $type
+ * @property string|null $number
+ * @property string|null $account_name
+ * @property int $active
+ * @property string|null $qr
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\PaymentFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment filter($filters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereAccountName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereQr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
+ */
+	class Payment extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -125,12 +157,20 @@ namespace App\Models{
 /**
  * App\Models\Role
  *
+ * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
  * @method static \Database\Factories\RoleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
  */
 	class Role extends \Eloquent {}
 }
@@ -152,7 +192,8 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
- * @property-read \App\Models\Role|null $role
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)

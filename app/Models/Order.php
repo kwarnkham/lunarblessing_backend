@@ -35,6 +35,11 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
+
     public function scopeOf($query, User $user)
     {
         $query->where('user_id', $user->id);

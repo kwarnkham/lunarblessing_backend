@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Picture;
 use App\Models\Role;
 use App\Models\User;
@@ -21,6 +22,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Payment::factory([
+            'name' => 'KBZPay',
+            'type' => 1,
+            'number' => '09797167172',
+            'account_name' => 'SAI KWARN KHAM',
+        ])->create();
+        Payment::factory([
+            'name' => 'WavePay',
+            'type' => 2,
+            'number' => '09797167172',
+            'account_name' => 'SAI KWAN KHAN',
+        ])->create();
         User::factory(['mobile' => '911'])->has(Role::factory(['name' => 'admin']))->create();
         $signs = [
             [

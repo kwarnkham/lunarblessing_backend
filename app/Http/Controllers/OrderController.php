@@ -9,6 +9,7 @@ use App\Models\Item;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -25,10 +26,12 @@ class OrderController extends Controller
     public function updateStatus(Request $request, Order $order)
     {
         $request->validate([
-            'status' => ['required', 'in:1,2,3,4,5']
+            'status' => ['required', 'in:1,2,3,4,5'],
         ]);
+
         $user = $request->user();
 
+        abort_if(!$user->isAdmin() && !is_null($order->screenshot), ResponseStatus::BAD_REQUEST->value);
         abort_if(
             !$user->isAdmin() && $request->status != 5,
             ResponseStatus::UNAUTHORIZED->value
@@ -41,6 +44,19 @@ class OrderController extends Controller
 
         $order->status = $request->status;
         $order->save();
+        return response()->json($order);
+    }
+
+    public function pay(Request $request, Order $order)
+    {
+        $request->validate([
+            'payment_id' => ['required', 'exists:payments,id'],
+            'screenshot' => ['required', 'image'],
+        ]);
+
+        $order->screenshot = basename(Storage::disk('s3')->putFile(env('APP_NAME') . "/order_paid", $request->screenshot, 'public'));
+        $order->save();
+
         return response()->json($order);
     }
 
