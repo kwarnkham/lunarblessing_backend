@@ -43,6 +43,46 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Taurus',
                 'description' => 'The Bull ♉︎. Sun Sign Dates from April 20th to May 20th. Negative polarity. Fixed modality. Triplicity, Earth.',
+            ],
+            [
+                'name' => 'Gemini',
+                'description' => 'The Twins ♊︎. Sun Sign Dates from May 21st to June 21st. Positive polarity. Mutable modality. Triplicity, Air.',
+            ],
+            [
+                'name' => 'Cancer',
+                'description' => 'The Crab ♋︎. Sun Sign Dates from June 22nd to July 22nd. Negative polarity. Cardinal modality. Triplicity, Water.',
+            ],
+            [
+                'name' => 'Leo',
+                'description' => ' The Lion ♌︎. Sun Sign Dates from July 23rd to August 22nd. Positive polarity. Fixed modality. Triplicity, Fire.',
+            ],
+            [
+                'name' => 'Virgo',
+                'description' => 'The Maiden ♍︎. Sun Sign Dates from August 23rd to September 22nd. Negative polarity. Mutable modality. Triplicity, Earth.',
+            ],
+            [
+                'name' => 'Libra',
+                'description' => 'The Scales ♎︎. Sun Sign Dates from September 23rd to October 22nd. Positive polarity. Cardinal modality. Triplicity, Air.',
+            ],
+            [
+                'name' => 'Scorpio',
+                'description' => 'The The Scorpion ♏︎. Sun Sign Dates from October 23rd to November 22nd. Negative polarity. Fixed modality. Triplicity, Water',
+            ],
+            [
+                'name' => 'Sagittarius',
+                'description' => 'The Archer ♐︎. Sun Sign Dates from November 23rd to December 21st. Positive polarity. Mutable modality. Triplicity, Fire.',
+            ],
+            [
+                'name' => 'Capricorn',
+                'description' => 'The Goat ♑︎. Sun Sign Dates from December 22nd to January 19th. Negative polarity. Cardinal modality. Triplicity, Earth.',
+            ],
+            [
+                'name' => 'Aquarius',
+                'description' => 'The Water bearer ♒︎ . Sun Sign Dates from January 20th to February 18th. Positive polarity. Fixed modality. Triplicity, Air.',
+            ],
+            [
+                'name' => 'Pisces',
+                'description' => 'The Fish ♓︎. Sun Sign Dates from February 19th to March 20th. Negative polarity. Mutable modality. Triplicity, Water.'
             ]
         ];
 
@@ -52,19 +92,15 @@ class DatabaseSeeder extends Seeder
                 'description' => $sign['description'],
                 'price' => 30000
             ])->has(
-                Picture::factory()
+                Picture::factory(['url' => '/asset/' . strtolower($sign['name']) . '.png'])
             )->create();
 
-        User::factory()->has(
-            Order::factory()->hasAttached(
-                Item::factory()->has(Picture::factory()),
-                ['quantity' => 1, 'sale_price' => 30000, 'text' => 'my cool text']
-            )
-        )->create();
+        // User::factory()->has(
+        //     Order::factory()->hasAttached(
+        //         Item::factory()->has(Picture::factory()),
+        //         ['quantity' => 1, 'sale_price' => 30000, 'text' => 'my cool text']
+        //     )
+        // )->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
