@@ -19,6 +19,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function isAdmin()
+    {
+        return in_array('admin', array_map(fn ($val) => $val['name'], $this->roles->toArray()));
+    }
     /**
      * The attributes that are mass assignable.
      *

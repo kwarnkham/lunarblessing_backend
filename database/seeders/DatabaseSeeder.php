@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Picture;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
                 'description' => 'The Bull ♉︎. Sun Sign Dates from April 20th to May 20th. Negative polarity. Fixed modality. Triplicity, Earth.',
             ]
         ];
+        Role::factory(['name' => 'admin'])->create();
 
         foreach ($signs as $sign)
             Item::factory([

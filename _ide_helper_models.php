@@ -69,6 +69,9 @@ namespace App\Models{
  * App\Models\Order
  *
  * @property int $id
+ * @property string $name
+ * @property string $mobile
+ * @property string $address
  * @property int $user_id
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -79,9 +82,13 @@ namespace App\Models{
  * @method static \Database\Factories\OrderFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order of(\App\Models\User $user)
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereMobile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
@@ -93,13 +100,39 @@ namespace App\Models{
 /**
  * App\Models\Picture
  *
+ * @property int $id
+ * @property int $item_id
+ * @property string|null $note
+ * @property string $url
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Item $item
  * @method static \Database\Factories\PictureFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Picture newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Picture newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Picture query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Picture whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Picture whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Picture whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Picture whereNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Picture whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Picture whereUrl($value)
  */
 	class Picture extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Role
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
+ * @method static \Database\Factories\RoleFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role query()
+ */
+	class Role extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -107,10 +140,11 @@ namespace App\Models{
  * App\Models\User
  *
  * @property int $id
- * @property string $name
+ * @property string|null $name
  * @property string|null $mobile
  * @property string|null $address
  * @property string|null $password
+ * @property string|null $fb_login_id
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -118,6 +152,7 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @property-read \App\Models\Role|null $role
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
@@ -126,6 +161,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereFbLoginId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereMobile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
