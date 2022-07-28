@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/deletion', function () {
+    return "We don't keep your Facebook data except for identifying you via the userID Facebook provided";
+});

@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('fb-data-delete', [AuthController::class, 'fbDataDelete']);
+
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
