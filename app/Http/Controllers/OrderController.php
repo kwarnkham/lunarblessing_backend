@@ -22,6 +22,19 @@ class OrderController extends Controller
         return response()->json(Order::of($request->user())->paginate());
     }
 
+    public function updateStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'status' => ['required', 'in:2,3,4,5']
+        ]);
+        $user = $request->user();
+        abort_if($order->user_id != $user->id, ResponseStatus::UNAUTHORIZED->value);
+        abort_if($order->status == $request->status, ResponseStatus::BAD_REQUEST->value);
+        $order->status = $request->status;
+        $order->save();
+        return response()->json($order);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
