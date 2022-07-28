@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +23,20 @@ class Order extends Model
 
     protected $guarded = ['id'];
     protected $with = ['items'];
+    protected $appends = ['code'];
+
+    protected function code(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => "#LBO066X" . $this->id . "X18" . $this->id * 49,
+        );
+    }
+
+    public static function codeToId($code)
+    {
+        return explode("X", $code)[1];
+    }
+
 
     public function items()
     {
@@ -42,6 +57,7 @@ class Order extends Model
 
     public function scopeOf($query, User $user)
     {
-        $query->where('user_id', $user->id);
+        if (!$user->isAdmin())
+            $query->where('user_id', $user->id);
     }
 }
