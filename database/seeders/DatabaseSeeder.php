@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::factory(['mobile' => '911'])->has(Role::factory(['name' => 'admin']))->create();
         $signs = [
             [
                 'name' => 'Aries',
@@ -31,7 +32,6 @@ class DatabaseSeeder extends Seeder
                 'description' => 'The Bull ♉︎. Sun Sign Dates from April 20th to May 20th. Negative polarity. Fixed modality. Triplicity, Earth.',
             ]
         ];
-        Role::factory(['name' => 'admin'])->create();
 
         foreach ($signs as $sign)
             Item::factory([

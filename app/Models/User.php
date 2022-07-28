@@ -14,7 +14,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
     public function orders()
     {
         return $this->hasMany(Order::class);
@@ -22,7 +21,7 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
     public function isAdmin()
@@ -36,6 +35,10 @@ class User extends Authenticatable
      */
     protected $guarded = [
         'id',
+    ];
+
+    protected $with = [
+        'roles',
     ];
 
     /**

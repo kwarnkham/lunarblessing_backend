@@ -25,11 +25,20 @@ class OrderController extends Controller
     public function updateStatus(Request $request, Order $order)
     {
         $request->validate([
-            'status' => ['required', 'in:2,3,4,5']
+            'status' => ['required', 'in:1,2,3,4,5']
         ]);
         $user = $request->user();
-        abort_if($order->user_id != $user->id, ResponseStatus::UNAUTHORIZED->value);
+
+        abort_if(
+            !$user->isAdmin() && $request->status != 5,
+            ResponseStatus::UNAUTHORIZED->value
+        );
+        abort_if(
+            $order->user_id != $user->id && !$user->isAdmin(),
+            ResponseStatus::UNAUTHORIZED->value
+        );
         abort_if($order->status == $request->status, ResponseStatus::BAD_REQUEST->value);
+
         $order->status = $request->status;
         $order->save();
         return response()->json($order);
@@ -84,7 +93,8 @@ class OrderController extends Controller
      */
     public function show(Request $request, Order $order)
     {
-        abort_if($order->user_id != $request->user()->id, ResponseStatus::NOT_FOUND->value);
+        $user = $request->user();
+        abort_if($order->user_id != $user->id && !$user->isAdmin(), ResponseStatus::NOT_FOUND->value);
         return response()->json($order);
     }
 
