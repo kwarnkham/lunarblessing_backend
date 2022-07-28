@@ -122,7 +122,7 @@ class DatabaseSeeder extends Seeder
         );
 
         DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
-            'url' => '/asset/' . $value->name . '.png', 'item_id' => $value->id
+            'url' => '/asset/' . strtolower($value->name) . '.png', 'item_id' => $value->id
         ])->toArray());
     }
 }
