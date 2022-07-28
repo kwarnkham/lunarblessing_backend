@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'number' => '09797167172',
             'account_name' => 'SAI KWAN KHAN',
         ])->create();
-        User::factory(['mobile' => '911'])->has(Role::factory(['name' => 'admin']))->create();
+        User::factory(['mobile' => 'moon', 'password' => 'ninja@moon'])->has(Role::factory(['name' => 'admin']))->create();
         $signs = [
             [
                 'name' => 'Aries',
@@ -101,6 +101,5 @@ class DatabaseSeeder extends Seeder
         //         ['quantity' => 1, 'sale_price' => 30000, 'text' => 'my cool text']
         //     )
         // )->create();
-
     }
 }
