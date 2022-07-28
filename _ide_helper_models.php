@@ -73,7 +73,9 @@ namespace App\Models{
  * @property string $mobile
  * @property string $address
  * @property int $user_id
+ * @property int|null $payment_id
  * @property int $status
+ * @property string|null $screenshot
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Item[] $items
@@ -90,6 +92,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereMobile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePaymentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereScreenshot($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
