@@ -55,6 +55,7 @@ class OrderController extends Controller
         ]);
 
         $order->screenshot = basename(Storage::disk('s3')->putFile(env('APP_NAME') . "/order_paid", $request->screenshot, 'public'));
+        $order->payment_id = $request->payment_id;
         $order->save();
 
         return response()->json($order);

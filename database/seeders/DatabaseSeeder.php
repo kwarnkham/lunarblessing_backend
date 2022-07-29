@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'WavePay',
                 'type' => 2,
                 'number' => '09797167172',
-                'account_name' => 'SAI KWAN KHAN',
+                'account_name' => null,
                 'created_at' => $now,
                 'updated_at' => $now
             ]
