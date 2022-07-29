@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'KBZPay',
                 'type' => 1,
-                'number' => '09797167172',
+                'number' => '797167172',
                 'account_name' => 'SAI KWARN KHAM',
                 'created_at' => $now,
                 'updated_at' => $now
