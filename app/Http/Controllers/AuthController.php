@@ -54,6 +54,19 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'password' => ['required', 'confirmed']
+        ]);
+        $user = $request->user();
+        abort_unless(Hash::check($request->current_password, $user->password), ResponseStatus::UNAUTHORIZED->value, "Current password is incorrect");
+        $user->password = $request->password;
+        $user->save();
+        return response()->json($user);
+    }
+
     public function fbDataDelete(Request $request)
     {
         $signed_request = $request->signed_request;
