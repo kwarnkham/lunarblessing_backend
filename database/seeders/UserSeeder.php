@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class PaymentSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,23 +16,27 @@ class PaymentSeeder extends Seeder
     public function run()
     {
         $now = now();
-        DB::table('payments')->insert([
+
+        DB::table('users')->insert([
             [
-                'name' => 'KBZPay',
-                'type' => 1,
-                'number' => '797167172',
-                'account_name' => 'SAI KWARN KHAM',
-                'created_at' => $now,
-                'updated_at' => $now
-            ],
-            [
-                'name' => 'WavePay',
-                'type' => 2,
-                'number' => '09797167172',
-                'account_name' => null,
+                'mobile' => 'moon',
+                'password' => 'ninja@moon',
                 'created_at' => $now,
                 'updated_at' => $now
             ]
+        ]);
+        DB::table('roles')->insert([
+            [
+                'name' => 'admin',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+        ]);
+        DB::table('role_user')->insert([
+            'user_id' => 1,
+            'role_id' => 1,
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
     }
 }

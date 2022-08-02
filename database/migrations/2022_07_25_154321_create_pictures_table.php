@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('item_id')->constrained();
             $table->string('note')->nullable();
             $table->string('url');
+            $table->tinyInteger('type')->default(1);
             $table->timestamps();
         });
     }
