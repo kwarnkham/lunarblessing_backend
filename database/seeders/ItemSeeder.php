@@ -112,13 +112,6 @@ class ItemSeeder extends Seeder
         ])->toArray());
 
         DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
-            'type' => '3',
-            'url' => '/items/' . strtolower($value->name) . '-on.jpeg', 'item_id' => $value->id,
-            'created_at' => $now,
-            'updated_at' => $now
-        ])->toArray());
-
-        DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
             'url' => '/items/' . strtolower($value->name) . '-off.jpeg', 'item_id' => $value->id,
             'type' => 2,
             'created_at' => $now,
@@ -126,22 +119,43 @@ class ItemSeeder extends Seeder
         ])->toArray());
 
         DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
+            'type' => 3,
+            'url' => '/items/' . strtolower($value->name) . '-on.jpeg', 'item_id' => $value->id,
+            'created_at' => $now,
+            'updated_at' => $now
+        ])->toArray());
+
+        DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
+            'type' => 4,
+            'url' => '/items/' . strtolower($value->name) . '-lid-off.jpeg', 'item_id' => $value->id,
+            'created_at' => $now,
+            'updated_at' => $now
+        ])->toArray());
+
+        DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
+            'type' => 5,
+            'url' => '/items/' . strtolower($value->name) . '-lid-on.jpeg', 'item_id' => $value->id,
+            'created_at' => $now,
+            'updated_at' => $now
+        ])->toArray());
+
+        DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
             'url' => '/items/' . strtolower($value->name) . '-set.jpeg', 'item_id' => $value->id,
-            'type' => 2,
+            'type' => 6,
             'created_at' => $now,
             'updated_at' => $now
         ])->toArray());
 
         DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
             'url' => '/items/' . strtolower($value->name) . '-night.jpeg', 'item_id' => $value->id,
-            'type' => 2,
+            'type' => 6,
             'created_at' => $now,
             'updated_at' => $now
         ])->toArray());
 
         DB::table('pictures')->insert(DB::table('items')->get()->map(fn ($value) => [
             'url' => '/items/' . strtolower($value->name) . '.jpeg', 'item_id' => $value->id,
-            'type' => 2,
+            'type' => 6,
             'created_at' => $now,
             'updated_at' => $now
         ])->toArray());
