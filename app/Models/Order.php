@@ -34,7 +34,7 @@ class Order extends Model
 
     public static function codeToId($code)
     {
-        return explode("X", $code)[1];
+        return explode("X", $code)[1] ?? false;
     }
 
 

@@ -25,7 +25,7 @@ class OrderController extends Controller
             'mobile' => ['numeric'],
             'status' => ['in:1,2,3,4,5'],
             'code' => [function ($attribute, $value, $fail) {
-                $order = Order::find(Order::codeToId($value));;
+                $order = Order::find(Order::codeToId($value));
                 if (!$order || $value != $order->code) $fail('The ' . $attribute . ' is invalid.');
             },]
         ]);

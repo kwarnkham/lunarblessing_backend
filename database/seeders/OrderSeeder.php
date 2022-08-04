@@ -18,6 +18,6 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        Order::factory(20)->for(User::factory())->for(Payment::factory())->hasAttached(Item::factory(), ['quantity' => 1, 'sale_price' => 30000])->create();
+        Order::factory(50)->for(User::factory())->for(Payment::factory())->hasAttached(Item::factory(), ['quantity' => 1, 'sale_price' => 30000])->create();
     }
 }
