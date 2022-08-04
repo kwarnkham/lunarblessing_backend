@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('mobile');
+            $table->string('mobile')->index();
             $table->string('address');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('payment_id')->nullable()->constrained();
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->index()->default(1);
             $table->string('screenshot')->nullable();
             $table->timestamps();
         });

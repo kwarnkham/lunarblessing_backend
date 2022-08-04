@@ -60,4 +60,24 @@ class Order extends Model
         if (!$user->isAdmin())
             $query->where('user_id', $user->id);
     }
+
+    public function scopeFilter($query, $filters)
+    {
+        $query->when($filters['order_in'] ?? false, function ($q, $orderIn) {
+            $q->orderBy('id', $orderIn);
+        });
+
+        $query->when($filters['status'] ?? false, function ($q, $status) {
+            $q->where('status', $status);
+        });
+
+        $query->when($filters['mobile'] ?? false, function ($q, $mobile) {
+            $q->where('mobile', $mobile);
+        });
+
+        $query->when($filters['code'] ?? false, function ($q, $code) {
+            $id = static::codeToId($code);
+            $q->where('id', $id);
+        });
+    }
 }

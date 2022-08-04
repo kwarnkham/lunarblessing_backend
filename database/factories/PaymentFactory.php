@@ -16,6 +16,11 @@ class PaymentFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'name' => fake()->name(),
+            'type' => 1,
+            'number' => fake()->numberBetween(0, 100000),
+            'account_name' => fake()->name()
+        ];
     }
 }

@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'mobile' => 'moon',
-                'password' => 'ninja@moon',
+                'password' => bcrypt('ninja@moon'),
                 'created_at' => $now,
                 'updated_at' => $now
             ]

@@ -20,7 +20,16 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(Order::of($request->user())->paginate());
+        $request->validate([
+            'order_in' => ['in:desc,asc'],
+            'mobile' => ['numeric'],
+            'status' => ['in:1,2,3,4,5'],
+            'code' => [function ($attribute, $value, $fail) {
+                $order = Order::find(Order::codeToId($value));;
+                if (!$order || $value != $order->code) $fail('The ' . $attribute . ' is invalid.');
+            },]
+        ]);
+        return response()->json(Order::filter($request->only(['status', 'order_in', 'mobile', 'code']))->of($request->user())->paginate($request->per_page ?? 10));
     }
 
     public function updateStatus(Request $request, Order $order)
