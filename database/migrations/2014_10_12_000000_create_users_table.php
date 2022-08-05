@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('mobile')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('address')->nullable();
             $table->string('password')->nullable();
             $table->string('fb_login_id')->unique()->nullable();

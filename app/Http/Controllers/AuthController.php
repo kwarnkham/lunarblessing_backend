@@ -49,6 +49,21 @@ class AuthController extends Controller
         ]);
     }
 
+    public function loginWithGoogle(Request $request)
+    {
+        $data = $request->validate([
+            'email' => ['required', 'email']
+        ]);
+
+        $user = User::where('email', $data['email'])->first() ?? User::create($data);
+        $user->tokens()->delete();
+        $token = $user->createToken('google');
+        return response()->json([
+            'user' => $user,
+            'token' => $token->plainTextToken
+        ]);
+    }
+
     public function checkToken(Request $request)
     {
         return response()->json($request->user());
