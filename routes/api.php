@@ -27,6 +27,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('login/fb', 'loginWithFacebook');
     Route::post('login/google', 'loginWithGoogle');
+    Route::post('login/telegram', 'loginWithTelegram');
     Route::post('password', 'changePassword')->middleware('auth:sanctum');
     Route::get('check-token', 'checkToken')->middleware('auth:sanctum');
 });

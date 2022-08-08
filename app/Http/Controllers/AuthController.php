@@ -49,6 +49,31 @@ class AuthController extends Controller
         ]);
     }
 
+    public function loginWithTelegram(Request $request)
+    {
+        $auth_data = $request->all();
+        $check_hash = $auth_data['hash'];
+        unset($auth_data['hash']);
+        $data_check_arr = [];
+        foreach ($auth_data as $key => $value) {
+            $data_check_arr[] = $key . '=' . $value;
+        }
+        sort($data_check_arr);
+        $data_check_string = implode("\n", $data_check_arr);
+        $secret_key = hash('sha256', env("TELEGRAM_BOT_TOKEN"), true);
+        $hash = hash_hmac('sha256', $data_check_string, $secret_key);
+        abort_if((strcmp($hash, $check_hash) !== 0) || ((time() - $auth_data['auth_date']) > 86400), ResponseStatus::BAD_REQUEST);
+        $data['telegram_id'] = $auth_data['id'];
+        $data['name'] = $auth_data['first_name'];
+        $user = User::where('telegram_id', $data['telegram_id'])->first() ?? User::create($data);
+        $user->tokens()->delete();
+        $token = $user->createToken('telegram');
+        return response()->json([
+            'user' => $user,
+            'token' => $token->plainTextToken
+        ]);
+    }
+
     public function loginWithGoogle(Request $request)
     {
         $data = $request->validate([
