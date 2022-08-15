@@ -144,7 +144,9 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        $data = $request->validated();
+        $order->update($data);
+        return response()->json($order->fresh());
     }
 
     /**

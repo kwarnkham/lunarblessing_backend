@@ -27,6 +27,7 @@ class StoreOrderRequest extends FormRequest
             'name' => ['required', 'alpha_dash'],
             'mobile' => ['required', 'numeric'],
             'address' => ['required'],
+            'note' => [''],
             'items' => ['required', 'array'],
             'items.*' => ['array', 'required'],
             'items.*.id' => ['required', 'exists:items,id', 'distinct'],

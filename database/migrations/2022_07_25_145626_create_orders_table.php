@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('payment_id')->nullable()->constrained();
             $table->tinyInteger('status')->index()->default(1);
             $table->string('screenshot')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->isAdmin();
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'alpha_dash'],
+            'mobile' => ['required', 'numeric'],
+            'address' => ['required'],
+            'note' => [''],
         ];
     }
 }
