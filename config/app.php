@@ -16,6 +16,7 @@ return [
     */
 
     'telegram_bot_token' => env("TELEGRAM_BOT_TOKEN", null),
+    'client' => env("CLIENT", null),
 
     'name' => env('APP_NAME', 'Laravel'),
 

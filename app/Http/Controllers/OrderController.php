@@ -36,6 +36,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'status' => ['required', 'in:1,2,3,4,5'],
+            'silent' => ['boolean']
         ]);
 
         $user = $request->user();
@@ -52,7 +53,10 @@ class OrderController extends Controller
         abort_if($order->status == $request->status, ResponseStatus::BAD_REQUEST->value);
 
         $order->status = $request->status;
-        $order->save();
+
+
+        if ($request->silent) $order->saveQuietly();
+        else $order->save();
         return response()->json($order);
     }
 
