@@ -4,8 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TelegramWebhookController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/' . config('app')['telegram_bot_token'], [TelegramWebhookController::class, 'handle']);
 
 Route::post('fb-data-delete', [AuthController::class, 'fbDataDelete']);
 
@@ -34,6 +36,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth:sanctum')->controller(UserController::class)->group(function () {
     Route::put('user', 'update');
+    Route::post('user/setting/{user}', 'changeSetting');
 });
 
 

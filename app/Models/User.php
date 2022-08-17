@@ -41,6 +41,8 @@ class User extends Authenticatable
         'roles',
     ];
 
+    protected $appends = ['has_password'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -55,6 +57,13 @@ class User extends Authenticatable
     {
         return Attribute::make(
             set: fn ($value) => bcrypt($value),
+        );
+    }
+
+    protected function hasPassword(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->password != null,
         );
     }
 

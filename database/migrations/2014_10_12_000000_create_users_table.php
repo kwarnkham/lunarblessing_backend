@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('password')->nullable();
             $table->string('fb_login_id')->unique()->nullable();
+            $table->boolean('telegram_notify')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

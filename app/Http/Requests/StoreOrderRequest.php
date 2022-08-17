@@ -30,10 +30,10 @@ class StoreOrderRequest extends FormRequest
             'note' => [''],
             'items' => ['required', 'array'],
             'items.*' => ['array', 'required'],
-            'items.*.id' => ['required', 'exists:items,id', 'distinct'],
+            'items.*.id' => ['required', 'exists:items,id'],
             'items.*.quantity' => ['required', 'numeric'],
             'items.*.text' => [''],
-            'items.*.dimmed_lid' => ['boolean']
+            'items.*.dimmed_lid' => ['boolean'],
         ];
     }
 }
