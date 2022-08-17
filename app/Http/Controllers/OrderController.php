@@ -91,24 +91,23 @@ class OrderController extends Controller
         $data = $request->validated();
         $user = $request->user();
         $itemids = array_map(fn ($val) => $val['id'], $data['items']);
-        return response()->json(DB::transaction(function () use ($user, $itemids, $data) {
+        $order = DB::transaction(function () use ($user, $itemids, $data) {
             $data['user_id'] = $user->id;
             $order = Order::create($data);
             $items = Item::whereIn('id', $itemids)->get();
+            $orderData = array_map(fn ($val) => [
+                'quantity' => $val['quantity'],
+                'sale_price' => $items->first(fn ($v) => $v->id == $val['id'])->price,
+                'text' => $val['text'],
+                'dimmed_lid' => $val['dimmed_lid']
+            ], $data['items']);
 
-            $order->items()->attach(
-                array_combine(
-                    $itemids,
-                    array_map(fn ($val) => [
-                        'quantity' => $val['quantity'],
-                        'sale_price' => $items->first(fn ($v) => $v->id == $val['id'])->price,
-                        'text' => $val['text'],
-                        'dimmed_lid' => $val['dimmed_lid']
-                    ], $data['items'])
-                )
-            );
+            foreach ($itemids as $key => $itemid) {
+                $order->items()->attach($itemid, $orderData[$key]);
+            }
             return $order;
-        }));
+        });
+        return response()->json($order);
     }
 
     /**
