@@ -17,7 +17,7 @@ class TelegramWebhookController extends Controller
 
 
         if ($request->exists('message') && array_key_exists('text', $request->message)) {
-            $text = $request->message['text'];
+            $text = $request->message['text']; // /start 8-4
             if (str_contains($text, '/start') && strpos($text, '-') !== false && strpos($text, ' ') !== false) {
                 [$token_id, $user_id] = explode('-', explode(' ', $text, 2)[1]);
                 if (PersonalAccessToken::find($token_id)->tokenable_id == $user_id) {
