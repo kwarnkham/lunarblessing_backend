@@ -20,7 +20,8 @@ class TelegramWebhookController extends Controller
             $text = $request->message['text']; // /start 8-4
             if (str_contains($text, '/start') && strpos($text, '-') !== false && strpos($text, ' ') !== false) {
                 [$token_id, $user_id] = explode('-', explode(' ', $text, 2)[1]);
-                if (PersonalAccessToken::find($token_id)->tokenable_id == $user_id) {
+                $accessToken = PersonalAccessToken::find($token_id);
+                if ($accessToken && $accessToken->tokenable_id == $user_id) {
                     $user = User::find($user_id);
                     $user->telegram_id = $request->message['from']['id'];
                     $user->telegram_notify = true;
