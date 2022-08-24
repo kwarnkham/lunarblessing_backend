@@ -98,6 +98,18 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
+    public function checkPaid(Request $request, Order $order)
+    {
+        $request->validate([
+            'screenshot' => ['required', 'image'],
+        ]);
+
+        $order->checked_screenshot = basename(Storage::disk('s3')->putFile(env('APP_NAME') . "/order_paid_checked", $request->screenshot, 'public'));
+        $order->save();
+
+        return response()->json($order);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

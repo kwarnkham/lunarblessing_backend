@@ -56,4 +56,5 @@ Route::middleware('auth:sanctum')->controller(OrderController::class)->group(fun
     Route::put('order/{order}/product', 'updateItems');
     Route::post('order/status/{order}', 'updateStatus');
     Route::post('order/pay/{order}', 'pay');
+    Route::post('order/check-paid/{order}', 'checkPaid');
 });
