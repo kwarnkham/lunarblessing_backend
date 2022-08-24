@@ -10,6 +10,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
@@ -30,6 +31,29 @@ class OrderController extends Controller
             },]
         ]);
         return response()->json(Order::filter($request->only(['status', 'order_in', 'mobile', 'code']))->of($request->user())->paginate($request->per_page ?? 10));
+    }
+
+    public function updateItems(Request $request, Order $order)
+    {
+        $request->validate([
+            'item_id' => ['required', Rule::exists('item_order', 'item_id')->where(
+                fn ($query) => $query->where('order_id', $order->id)
+            )],
+            'quantity' => ['required', 'numeric'],
+            'sale_price' => ['required', 'numeric'],
+            'text' => ['nullable']
+        ]);
+
+        if ($request->quantity <= 0) $order->items()->detach($request->item_id);
+
+        else
+            $order->items()->updateExistingPivot($request->item_id, [
+                'quantity' => $request->quantity,
+                'sale_price' => $request->sale_price,
+                'text' => $request->text
+            ]);
+
+        return response()->json($order->fresh());
     }
 
     public function updateStatus(Request $request, Order $order)
