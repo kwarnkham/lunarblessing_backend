@@ -24,7 +24,7 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'alpha_dash'],
+            'name' => ['required', 'string'],
             'mobile' => ['required', 'numeric'],
             'address' => ['required'],
             'note' => [''],
